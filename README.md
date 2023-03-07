@@ -1,2 +1,4 @@
 # ETS_PPLBO_35
-ETS
+Nama  : Aqil Rahman
+NIM   : 201524035
+Kelas : 3B - DIV
