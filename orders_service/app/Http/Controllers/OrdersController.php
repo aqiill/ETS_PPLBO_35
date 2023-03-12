@@ -33,19 +33,37 @@ class OrdersController extends Controller
             'qty' => 'required'
         ]);
 
-        $product_response = Http::get('http://localhost:8000/api/v1/products/' . $request->id_product)->json();
+        try {
+            $product_response = Http::get('http://localhost:8000/api/v1/products/' . $request->id_product)->json();
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error accessing product service'], 500);
+        }
+
         $total = $product_response['data']['price'] * $request->qty;
 
-        $payment_response = Http::post('http://localhost:8002/api/v1/payment/', [
-            'total' => $total
-        ])->json();
+        try {
+            $payment_response = Http::post('http://localhost:8002/api/v1/payment/', [
+                'total' => $total
+            ])->json();
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error accessing payment service'], 500);
+        }
 
-        $stock = Http::get('http://localhost:8000/api/v1/products/' . $request->id_product)->json();
+        try {
+            $stock = Http::get('http://localhost:8000/api/v1/products/' . $request->id_product)->json();
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error accessing product service'], 500);
+        }
+
         $count = $stock['data']['stock'] - $request->qty;
 
-        $product_update_response = Http::post('http://localhost:8000/api/v1/products/update/' . $request->id_product, [
-            'stock' => $count
-        ])->json();
+        try {
+            $product_update_response = Http::post('http://localhost:8000/api/v1/products/update/' . $request->id_product, [
+                'stock' => $count
+            ])->json();
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error updating product'], 500);
+        }
 
         $payment_id = $payment_response['payment_id'];
 
