@@ -7,6 +7,7 @@ Kelas : 3B - DIV<br />
 * Products Port 8000
 * Orders Port 8001
 * Payment Port 8002
+* Reporting Port 8004
 
 ## Contoh Penggunaan
 Menampilkan data cukup dengan menggunakan method `GET` pada setiap service
@@ -14,9 +15,13 @@ Menampilkan data cukup dengan menggunakan method `GET` pada setiap service
 http://localhost:8000/api/v1/products/
 http://localhost:8001/api/v1/orders/
 http://localhost:8002/api/v1/paymment/
+http://localhost:8002/api/v1/sales-report/
 
 /* Tambahkan parameter id untuk mendapatkan data berdasarkan id */
 http://localhost:8000/api/v1/products/1
+
+/* Tambahkan parameter id_pembayaran untuk mendapatkan data berdasarkan id */
+http://localhost:8000/api/v1/sales-report/1
 ```
 
 ### Product
