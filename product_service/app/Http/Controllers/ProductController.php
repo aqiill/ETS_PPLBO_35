@@ -52,16 +52,24 @@ class ProductController extends Controller
         }
 
         $this->validate($request, [
-            'name_product' => 'required',
-            'price' => 'required',
-            'stock' => 'required',
-            'image' => 'required'
+            'name_product' => 'nullable',
+            'price' => 'nullable',
+            'stock' => 'nullable',
+            'image' => 'nullable'
         ]);
 
-        $product->name_product = $request->name_product;
-        $product->price = $request->price;
-        $product->stock = $request->stock;
-        $product->image = $request->image;
+        if ($request->has('name_product')) {
+            $product->name_product = $request->name_product;
+        }
+        if ($request->has('price')) {
+            $product->price = $request->price;
+        }
+        if ($request->has('stock')) {
+            $product->stock = $request->stock;
+        }
+        if ($request->has('image')) {
+            $product->image = $request->image;
+        }
         $product->save();
 
         return response()->json(['message' => 'Product updated', 'data' => $product], 200);

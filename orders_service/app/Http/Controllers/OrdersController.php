@@ -33,8 +33,18 @@ class OrdersController extends Controller
             'qty' => 'required'
         ]);
 
+        $product_response = Http::get('http://localhost:8000/api/v1/products/' . $request->id_product)->json();
+        $total = $product_response['data']['price'] * $request->qty;
+
         $payment_response = Http::post('http://localhost:8002/api/v1/payment/', [
-            'total' => '238000'
+            'total' => $total
+        ])->json();
+
+        $stock = Http::get('http://localhost:8000/api/v1/products/' . $request->id_product)->json();
+        $count = $stock['data']['stock'] - $request->qty;
+
+        $product_update_response = Http::post('http://localhost:8000/api/v1/products/update/' . $request->id_product, [
+            'stock' => $count
         ])->json();
 
         $payment_id = $payment_response['payment_id'];
