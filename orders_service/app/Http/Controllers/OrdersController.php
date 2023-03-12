@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Orders;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class OrdersController extends Controller
 {
@@ -28,13 +29,19 @@ class OrdersController extends Controller
     {
         $this->validate($request, [
             'id_product' => 'required',
-            'id_payment' => 'required',
+            // 'id_payment' => 'required',
             'qty' => 'required'
         ]);
 
+        $payment_response = Http::post('http://localhost:8002/api/v1/payment/', [
+            'total' => '238000'
+        ])->json();
+
+        $payment_id = $payment_response['payment_id'];
+
         $order = new Orders();
         $order->id_product = $request->id_product;
-        $order->id_payment = $request->id_payment;
+        $order->id_payment = $payment_id;
         $order->qty = $request->qty;
         $order->save();
 
