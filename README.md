@@ -1,35 +1,57 @@
-# ETS_PPLBO_35
-Nama  : Aqil Rahman<br />
-NIM   : 201524035<br />
-Kelas : 3B - DIV<br />
+# Build Cafe Microservices With Lumen Laravel
+## _ETS_PPLBO_35_
+### Aqil Rahman 3B-D4TI
+
+[![Build Status](https://img.shields.io/badge/develop-initial-purple)]()
+
+Cafe Microservice menggunakan Lumen Laravel guna untuk memenuhi tugas Evaluasi Tengah Semester pada mata kuliah PPLBO tahun 2023<br>
+Adapun Teknologi yang digunakan:<br>
+* Lumen Laravel
+* MySql
 
 ## Service
-* Products Port 8000
-* Orders Port 8001
-* Payment Port 8002
-* Reporting Port 8003
+* API Gateway
+* Discovery Service
+* Products Service
+* Orders Service
+* Paymment Service
+* Sales-report Service
 
-## Contoh Penggunaan
-Menampilkan data cukup dengan menggunakan method `GET` pada setiap service
+## Rest API
+Endpoint dan Method pada setiap service:
+| Service | Method | endpoint |
+| ------- | ------ | -------- |
+| products | GET | http://localhost:8080/api/products |
+| products | GET | http://localhost:8080/api/products/{id} |
+| products | POST | http://localhost:8080/api/products |
+| products | POST | http://localhost:8080/api/products/update/{id} |
+| products | DELETE | http://localhost:8080/api/products/{ID} |
+| orders | GET | http://localhost:8080/api/orders |
+| orders | GET | http://localhost:8080/api/orders/{id} |
+| orders | POST | http://localhost:8080/api/orders |
+| orders | POST | http://localhost:8080/api/orders/update/{id} |
+| orders | DELETE | http://localhost:8080/api/orders/{id} |
+| payment | GET | http://localhost:8080/api/payment |
+| payment | GET | http://localhost:8080/api/payment/{id} |
+| payment | POST | http://localhost:8080/api/payment |
+| payment | POST | http://localhost:8080/api/payment/update/{id} |
+| sales-report | GET | http://localhost:8080/api/sales-report |
+| sales-report | GET | http://localhost:8080/api/sales-report/{id} |
+
+Tambahkan parameter id untuk mendapatkan data berdasarkan id
 ```
-http://localhost:8000/api/v1/products/
-http://localhost:8001/api/v1/orders/
-http://localhost:8002/api/v1/paymment/
-http://localhost:8003/sales-report/
-
-/* Tambahkan parameter id untuk mendapatkan data berdasarkan id */
 http://localhost:8000/api/v1/products/1
-
-/* Tambahkan parameter id_pembayaran untuk mendapatkan data berdasarkan id */
+```
+Tambahkan parameter id_pembayaran pada sales-report untuk mendapatkan detail laporan
+```
 http://localhost:8003/sales-report/1
 ```
-
-### Product
+## Product
 Membuat product gunakan endpoint
 ```
 http://localhost:8000/api/v1/products/
 ```
-Isi form
+Field
 * name_product
 * price
 * stock
@@ -40,7 +62,7 @@ Melakukan perubahan data product tambahkan parameter `update/$id` pada endpoint
 ```
 http://localhost:8000/api/v1/products/update/1
 ```
-Ubah minimal salah satu:
+Ubah minimal salah satu field:
 * name_product
 * price
 * stock
