@@ -21,22 +21,23 @@ Adapun Teknologi yang digunakan:<br>
 Endpoint dan Method pada setiap service:
 | Service | Method | endpoint |
 | ------- | ------ | -------- |
-| products | GET | http://localhost:8080/api/products |
-| products | GET | http://localhost:8080/api/products/{id} |
-| products | POST | http://localhost:8080/api/products |
-| products | POST | http://localhost:8080/api/products/update/{id} |
-| products | DELETE | http://localhost:8080/api/products/{ID} |
-| orders | GET | http://localhost:8080/api/orders |
-| orders | GET | http://localhost:8080/api/orders/{id} |
-| orders | POST | http://localhost:8080/api/orders |
-| orders | POST | http://localhost:8080/api/orders/update/{id} |
-| orders | DELETE | http://localhost:8080/api/orders/{id} |
-| payment | GET | http://localhost:8080/api/payment |
-| payment | GET | http://localhost:8080/api/payment/{id} |
-| payment | POST | http://localhost:8080/api/payment |
-| payment | POST | http://localhost:8080/api/payment/update/{id} |
-| sales-report | GET | http://localhost:8080/api/sales-report |
-| sales-report | GET | http://localhost:8080/api/sales-report/{id} |
+| products | GET | http://localhost:8000/api/v1/products |
+| products | GET | http://localhost:8000/api/v1/products/{id} |
+| products | POST | http://localhost:8000/api/v1/products |
+| products | POST | http://localhost:8000/api/v1/products/update/{id} |
+| products | DELETE | http://localhost:8000/api/v1/products/{ID} |
+| orders | GET | http://localhost:8001/api/v1/orders |
+| orders | GET | http://localhost:8001/api/v1/orders/{id} |
+| orders | POST | http://localhost:8001/api/v1/orders |
+| orders | POST | http://localhost:8001/api/v1/orders/update/{id} |
+| orders | DELETE | http://localhost:8001/api/v1/orders/{id} |
+| payment | GET | http://localhost:8002/api/v1/payment |
+| payment | GET | http://localhost:8002/api/v1/payment/{id} |
+| payment | POST | http://localhost:8002/api/v1/payment |
+| payment | POST | http://localhost:8002/api/v1/payment/update/{id} |
+| sales-report | GET | http://localhost:8003/sales-report |
+| sales-report | GET | http://localhost:8003/sales-report/{id} |
+| health | GET | http://localhost:8003/health |
 
 Tambahkan parameter id untuk mendapatkan data berdasarkan id
 ```

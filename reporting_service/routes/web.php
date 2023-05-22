@@ -15,6 +15,8 @@
 */
 
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
@@ -119,4 +121,43 @@ $router->get('/sales-report/{id_payment}', function ($id_payment) use ($router) 
         'data' => $data,
         'total' => $total
     ];
+});
+
+$router->get('/health', function () use ($router) {
+    try {
+        // Pemeriksaan koneksi ke database
+        // DB::connection()->getPdo(); ga bisa pakai Pdo
+        DB::connection()->getDatabaseName();
+        // Jika berhasil, database terhubung dengan baik
+
+        // Pemeriksaan koneksi jaringan
+        $googlePing = exec("ping -c 1 google.com");
+        if (strpos($googlePing, '1 packets transmitted, 1 received') === false) {
+            throw new \Exception('Koneksi jaringan tidak stabil');
+        }
+
+        // Pemeriksaan ketersediaan layanan eksternal
+        $productsUrl = 'http://localhost:8000/api/v1/products/';
+        $ordersUrl = 'http://localhost:8001/api/v1/orders/';
+        $paymentsUrl = 'http://localhost:8002/api/v1/payment/';
+
+        $productsResponse = file_get_contents($productsUrl);
+        if ($productsResponse === false) {
+            throw new \Exception('Layanan produk tidak tersedia');
+        }
+
+        $ordersResponse = file_get_contents($ordersUrl);
+        if ($ordersResponse === false) {
+            throw new \Exception('Layanan pesanan tidak tersedia');
+        }
+
+        $paymentsResponse = file_get_contents($paymentsUrl);
+        if ($paymentsResponse === false) {
+            throw new \Exception('Layanan pembayaran tidak tersedia');
+        }
+
+        return response()->json(['status' => 'OK']);
+    } catch (\Exception $e) {
+        return response()->json(['status' => 'Error', 'message' => $e->getMessage()], 500);
+    }
 });
